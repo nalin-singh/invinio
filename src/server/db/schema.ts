@@ -18,13 +18,10 @@ import {
  */
 export const createTable = pgTableCreator((name) => `invinio_${name}`);
 
-export const posts = createTable(
-  "sku",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("last_updated_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-  },
-);
+export const posts = createTable("sku", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 256 }),
+  createdAt: timestamp("last_updated_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
