@@ -1,3 +1,5 @@
+"use client";
+
 import { configureStore } from "@reduxjs/toolkit";
 import {
   useDispatch,
@@ -5,10 +7,10 @@ import {
   useSelector,
 } from "react-redux";
 import { logger } from "redux-logger";
-import { authReducer } from "~/redux/features/authSlice";
+import { generalReducer } from "~/redux/features/generalSlice";
 
 export const store = configureStore({
-  reducer: { auth: authReducer },
+  reducer: { general: generalReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
