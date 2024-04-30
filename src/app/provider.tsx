@@ -1,7 +1,8 @@
 "use client";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedOut, SignIn } from "@clerk/nextjs";
 import { Provider } from "react-redux";
+import { TooltipProvider } from "~/components/atoms/tooltip";
 import { store } from "~/redux/store";
 
 export const ProviderWrapper = ({
@@ -11,7 +12,14 @@ export const ProviderWrapper = ({
 }) => {
   return (
     <Provider store={store}>
-      <ClerkProvider>{children}</ClerkProvider>
+      <TooltipProvider>
+        <ClerkProvider>
+          <SignedOut>
+            <SignIn />
+          </SignedOut>
+          {children}
+        </ClerkProvider>
+      </TooltipProvider>
     </Provider>
   );
 };

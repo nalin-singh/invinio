@@ -1,6 +1,4 @@
-"use client";
-
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { TRootState } from "../store";
 
 export type TGeneralState = {
@@ -8,17 +6,15 @@ export type TGeneralState = {
 };
 
 const initialState: TGeneralState = {
-  isDarkMode:
-    typeof window !== "undefined" && localStorage.getItem("theme") === "dark",
+  isDarkMode: false,
 };
 
 export const generalSlice = createSlice({
   name: "general",
   initialState,
   reducers: {
-    toggleTheme: (state) => {
-      localStorage.setItem("theme", state.isDarkMode ? "light" : "dark");
-      state.isDarkMode = !state.isDarkMode;
+    toggleTheme: (state, action: PayloadAction<boolean>) => {
+      state.isDarkMode = action.payload;
     },
   },
 });

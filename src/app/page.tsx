@@ -1,16 +1,25 @@
 "use client";
 
-import { useSelector } from "react-redux";
-import { Button } from "~/components/atoms/button";
-import { selectTheme } from "~/redux/features/generalSlice";
+import { useEffect } from "react";
+import Navigation from "~/components/molecules/navigation";
+import { selectTheme, toggleTheme } from "~/redux/features/generalSlice";
+import { useAppDispatch, useAppSelector } from "~/redux/store";
 
 const Application = () => {
-  const isDarkMode = useSelector(selectTheme);
+  const isDarkMode = useAppSelector(selectTheme);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("palette") === "dark") {
+      dispatch(toggleTheme(true));
+    }
+  }, []);
+
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-center ${isDarkMode ? "dark" : "light"}`}
+      className={`flex h-screen overflow-hidden ${isDarkMode ? "dark" : "light"}`}
     >
-      <Button>Invinio</Button>
+      <Navigation />
     </main>
   );
 };
