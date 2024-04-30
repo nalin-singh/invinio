@@ -1,3 +1,5 @@
-export const Inventory = () => {
+const Inventory = () => {
   return <div>Inventory</div>;
 };
+
+export default Inventory;
