@@ -8,9 +8,10 @@ import {
 } from "react-redux";
 import { logger } from "redux-logger";
 import { generalReducer } from "~/redux/features/generalSlice";
+import { inventoryReducer } from "./features/inventorySlice";
 
 export const store = configureStore({
-  reducer: { general: generalReducer },
+  reducer: { general: generalReducer, inventory: inventoryReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
