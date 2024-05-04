@@ -12,7 +12,7 @@ import {
 
 const paths: Array<{ path: string; title: string; icon: LucideIcon }> = [
   {
-    path: "/",
+    path: "/dashboard",
     title: "Dashboard",
     icon: LayoutDashboard,
   },

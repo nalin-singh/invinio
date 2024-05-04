@@ -1,25 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
-import Navigation from "~/components/molecules/navigation";
-import { selectTheme, toggleTheme } from "~/redux/features/generalSlice";
-import { useAppDispatch, useAppSelector } from "~/redux/store";
+import Link from "next/link";
+import { Button } from "~/components/atoms/button";
 
 const Application = () => {
-  const isDarkMode = useAppSelector(selectTheme);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (localStorage.getItem("palette") === "dark") {
-      dispatch(toggleTheme(true));
-    }
-  }, []);
-
   return (
-    <main
-      className={`flex h-screen overflow-hidden ${isDarkMode ? "dark" : "light"}`}
-    >
-      <Navigation />
+    <main className={`flex h-screen overflow-hidden`}>
+      <div className="m-auto flex flex-col gap-2 text-center">
+        <p className="text-4xl font-bold">Invinio</p>
+        <p className="text-xl">Inventory and Invoice Management System</p>
+        <Link href="/dashboard">
+          <Button>Get Started</Button>
+        </Link>
+      </div>
     </main>
   );
 };
