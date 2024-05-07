@@ -49,6 +49,7 @@ export const CustomerSchema = z.object({
   email: z.string().email(),
   phone: z.string().optional(),
   createdAt: z.date(),
+  address: z.string().optional(),
 });
 
 export const VendorSchema = z.object({

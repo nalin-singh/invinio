@@ -175,6 +175,9 @@ importers:
       redux-thunk:
         specifier: ^3.1.0
         version: 3.1.0(redux@5.0.1)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       sonner:
         specifier: ^1.4.41
         version: 1.4.41(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -5023,6 +5026,12 @@ packages:
     engines: { node: ">=10" }
     hasBin: true
 
+  server-only@0.0.1:
+    resolution:
+      {
+        integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==,
+      }
+
   set-function-length@1.2.2:
     resolution:
       {
@@ -8864,6 +8873,8 @@ snapshots:
   semver@7.6.0:
     dependencies:
       lru-cache: 6.0.0
+
+  server-only@0.0.1: {}
 
   set-function-length@1.2.2:
     dependencies:

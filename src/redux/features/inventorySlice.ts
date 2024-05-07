@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { TRootState } from "../store";
-import { InventoryItemSchema, TInventoryItem } from "~/types";
+import { InventoryItemSchema, type TInventoryItem } from "~/types";
 import { z } from "zod";
 
 // thunks
