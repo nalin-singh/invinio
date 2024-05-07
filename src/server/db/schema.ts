@@ -28,6 +28,7 @@ export const inventory = createTable("inventory", {
   price: integer("price").notNull(),
   quantity: integer("quantity").notNull(),
   unit: varchar("unit", { length: 256 }).notNull(),
+  sellingPrice: integer("sellingPrice").notNull(),
   image: varchar("image", { length: 1024 }),
   category: varchar("category", { length: 256 }),
   createdAt: timestamp("createdAt")
