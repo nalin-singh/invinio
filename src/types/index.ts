@@ -3,6 +3,7 @@ import { z } from "zod";
 export const InventoryItemSchema = z.object({
   ID: z.string().uuid(),
   name: z.string(),
+  userID: z.string().uuid(),
   description: z.string().optional(),
   price: z.number().optional(),
   quantity: z.number().optional(),
@@ -16,7 +17,7 @@ export const InventoryItemSchema = z.object({
 
 export const InvoiceSchema = z.object({
   ID: z.string().uuid(),
-  userID: z.string().uuid(),
+  customerID: z.string().uuid(),
   paymentID: z.string().uuid(),
   cart: z.array(
     z.object({
@@ -35,7 +36,7 @@ export const InvoiceSchema = z.object({
 
 export const PaymentSchema = z.object({
   ID: z.string().uuid(),
-  userID: z.string().uuid(),
+  customerID: z.string().uuid(),
   invoiceID: z.string().uuid(),
   amount: z.number(),
   createdAt: z.date(),
