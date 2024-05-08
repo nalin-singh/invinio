@@ -23,18 +23,20 @@ export const createTable = pgTableCreator((name) => `invinio_${name}`);
 export const inventory = createTable("inventory", {
   id: uuid("id").primaryKey(),
   userId: uuid("userId").notNull(),
-  name: varchar("name", { length: 256 }),
-  description: varchar("description", { length: 1024 }),
+  name: varchar("name", { length: 256 }).notNull(),
+  description: varchar("description", { length: 1024 }).default(sql`NULL`),
   price: integer("price").notNull(),
   quantity: integer("quantity").notNull(),
   unit: varchar("unit", { length: 256 }).notNull(),
   sellingPrice: integer("sellingPrice").notNull(),
-  image: varchar("image", { length: 1024 }),
-  category: varchar("category", { length: 256 }),
+  image: varchar("image", { length: 1024 }).default(sql`NULL`),
+  category: varchar("category", { length: 256 }).notNull(),
   createdAt: timestamp("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: timestamp("updatedAt"),
+  updatedAt: timestamp("updatedAt")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
   lastPurchasedAt: timestamp("lastPurchasedAt"),
 });
 

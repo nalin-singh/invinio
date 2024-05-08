@@ -7,7 +7,7 @@ export const getInventory = async () => {
   if (!user.userId) throw new Error("Unauthorized User Access");
 
   const inventory = await db.query.inventory.findMany({
-    where: (item, { eq }) => eq(item.userId, user.userId),
+    // where: (item, { eq }) => eq(item.userId, user.userId),
     orderBy: (item, { desc }) => desc(item.updatedAt),
   });
 

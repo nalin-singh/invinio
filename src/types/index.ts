@@ -1,32 +1,39 @@
 import { z } from "zod";
 
 export const InventoryItemSchema = z.object({
-  ID: z.string().uuid(),
+  id: z.string().uuid(),
   name: z.string(),
-  userID: z.string().uuid(),
-  description: z.string().optional(),
-  price: z.number(),
+  userId: z.string().uuid(),
+  description: z
+    .string()
+    .min(30, { message: "Description must be at least 30 characters" })
+    .nullable(),
+  price: z
+    .number()
+    .refine((price) => price > 0, { message: "Price must be greater than 0" }),
   quantity: z.number(),
-  unit: z.number().or(z.string()),
-  sellingPrice: z.number(),
-  image: z.string().url(),
-  category: z.string().optional(),
+  unit: z.string(),
+  sellingPrice: z.number().refine((price) => price > 0, {
+    message: "Selling Price must be greater than 0",
+  }),
+  image: z.string().url().nullable(),
+  category: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  lastPurchasedAt: z.date().optional(),
+  lastPurchasedAt: z.date().nullable(),
 });
 
 export const InvoiceSchema = z.object({
-  ID: z.string().uuid(),
-  customerID: z.string().uuid(),
-  paymentID: z.string().uuid(),
+  id: z.string().uuid(),
+  customerId: z.string().uuid(),
+  paymentId: z.string().uuid(),
   cart: z.array(
     z.object({
       id: z.string().uuid(),
       name: z.string(),
       price: z.number().optional(),
       quantity: z.number().optional(),
-      unit: z.number().or(z.string()).optional(),
+      unit: z.string(),
       image: z.string().optional(),
     }),
   ),
@@ -37,8 +44,8 @@ export const InvoiceSchema = z.object({
 
 export const PaymentSchema = z.object({
   ID: z.string().uuid(),
-  customerID: z.string().uuid(),
-  invoiceID: z.string().uuid(),
+  customerId: z.string().uuid(),
+  invoiceId: z.string().uuid(),
   amount: z.number(),
   createdAt: z.date(),
   method: z.enum(["Cedit Card", "Cash", "UPI", "Bank Transfer"]),
