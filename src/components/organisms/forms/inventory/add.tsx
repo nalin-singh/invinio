@@ -62,7 +62,104 @@ const AddInventoryForm = () => {
             </FormItem>
           )}
         />
-
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Product Description</FormLabel>
+              <FormControl>
+                {/* @ts-expect-error Never Nullable */}
+                <Input
+                  type="text"
+                  placeholder="Describe the product"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Helps customers understand what the product is.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Product Description</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="eg. Clothing, Electronics, etc"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>The category of the product.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input type={"number"} {...field} />
+              </FormControl>
+              <FormDescription>
+                Cost of the product when purchased.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="unit"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Unit</FormLabel>
+              <FormControl>
+                <Input placeholder="eg. KG, LB, LTR, etc" {...field} />
+              </FormControl>
+              <FormDescription>The unit of the measurement.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Quantity</FormLabel>
+              <FormControl>
+                <Input type={"number"} {...field} />
+              </FormControl>
+              <FormDescription>Price of the product.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="sellingPrice"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Selling Price</FormLabel>
+              <FormControl>
+                <Input type={"number"} {...field} />
+              </FormControl>
+              <FormDescription>
+                Cost of the product for the customer.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
