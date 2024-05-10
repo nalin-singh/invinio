@@ -1,17 +1,13 @@
 #!/bin/bash
 
 # Get list of staged files
-staged_files=$(git diff --cached --name-only --diff-filter=ACM)
+stagedFiles=$(git diff --cached --name-only --diff-filter=ACM)
 
 # Check if there are staged files
-if [ -n "$staged_files" ]; then
-    # Loop through staged files
-    for file in $staged_files; do
-        # Check if the file is a JavaScript or TypeScript file
+if [ -n "$stagedFiles" ]; then
+    for file in $stagedFiles; do
         if [[ "$file" == *.js || "$file" == *.jsx || "$file" == *.ts || "$file" == *.tsx ]]; then
-            # Run formatting and linting commands
             pnpm format "$file" && pnpm lint "$file"
-            # Add the formatted file to the staging area
             git add "$file"
         fi
     done
