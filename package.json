@@ -8,9 +8,9 @@
     "db:push": "drizzle-kit push:pg",
     "db:studio": "drizzle-kit studio",
     "dev": "next dev --turbo",
-    "lint": "next lint",
+    "lint": "next lint --file",
     "start": "next start",
-    "format": "prettier --write .",
+    "format": "prettier --write",
     "prepare": "husky"
   },
   "dependencies": {
