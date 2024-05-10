@@ -1,2 +1,16 @@
-pnpm format
-pnpm lint
+#!/bin/bash
+
+# Get list of staged files
+stagedFiles=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Check if there are staged files
+if [ -n "$stagedFiles" ]; then
+    for file in $stagedFiles; do
+        if [[ "$file" == *.js || "$file" == *.jsx || "$file" == *.ts || "$file" == *.tsx ]]; then
+            pnpm format "$file" && pnpm lint "$file"
+            git add "$file"
+        fi
+    done
+fi
+
+exit 0
