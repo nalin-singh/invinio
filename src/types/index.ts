@@ -18,9 +18,9 @@ export const InventoryItemSchema = z.object({
   }),
   image: z.string().url().nullable(),
   category: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  lastPurchasedAt: z.date().nullable(),
+  createdAt: z.string().date(),
+  updatedAt: z.string().date(),
+  lastPurchasedAt: z.string().date().nullable(),
 });
 
 export const InvoiceSchema = z.object({

@@ -31,13 +31,13 @@ export const inventory = createTable("inventory", {
   sellingPrice: integer("sellingPrice").notNull(),
   image: varchar("image", { length: 1024 }).default(sql`NULL`),
   category: varchar("category", { length: 256 }).notNull(),
-  createdAt: timestamp("createdAt")
+  createdAt: varchar("createdAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: timestamp("updatedAt")
+  updatedAt: varchar("createdAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  lastPurchasedAt: timestamp("lastPurchasedAt"),
+  lastPurchasedAt: varchar("lastPurchasedAt", { length: 32 }),
 });
 
 export const invoice = createTable("invoice", {
