@@ -1,4 +1,4 @@
-import { TInventoryItem } from "~/types";
+import type { TInventoryItem } from "~/types";
 
 export const _data: TInventoryItem[] = [
   {

@@ -10,13 +10,14 @@ const Inventory = async () => {
     <div className={`flex w-full flex-col gap-4`}>
       <p className="text-2xl font-bold">Inventory</p>
       <section className="flex w-full flex-col gap-4">
-        <div className="flex flex-row items-center justify-between">
-          <p className="font-semibold">Item Catalog</p>
-        </div>
-        <DataTable data={inventory} columns={inventoryColumnDef} />
+        <DataTable
+          title={"Item Catalog"}
+          data={inventory}
+          columns={inventoryColumnDef}
+        />
       </section>
       <section className="flex w-full flex-col gap-4">
-        <p className="text-xl font-bold">Demonstration Catalog</p>
+        <p className="text-xl font-bold"></p>
         <DemonstrationDataTable />
       </section>
     </div>

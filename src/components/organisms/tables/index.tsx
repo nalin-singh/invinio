@@ -7,7 +7,13 @@ import { _data } from "./data";
 export function DemonstrationDataTable() {
   return (
     <div>
-      <DataTable data={_data} columns={inventoryColumnDef} />
+      <DataTable
+        title="Demonstration Catalog"
+        description="This is a demonstration of all the features available in the DataTable component."
+        data={_data}
+        columns={inventoryColumnDef}
+        config={{ viewOptions: true }}
+      />
     </div>
   );
 }

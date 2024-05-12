@@ -26,16 +26,40 @@ import {
 } from "../../atoms/table";
 
 import { DataTablePagination } from "./data-table-pagination";
+import { DataTableViewOptions } from "./data-table-view-options";
 
+/**
+ * Represents the properties for a data table component.
+ * @template TData - The type of data in the table.
+ * @template TValue - The type of values in the table.
+ */
 interface DataTableProps<TData, TValue> {
+  /** The title of the data table. */
+  title: string;
+  /** Optional description of the data table. */
+  description?: string;
+  /** The columns configuration of the data table. */
   columns: ColumnDef<TData, TValue>[];
+  /** The data to be displayed in the table. */
   data: TData[];
+  /** Additional configuration options for the data table. */
+  config?: {
+    /** Whether to enable pagination, defaults to true. */
+    pagination?: boolean;
+    /** Whether to show view options, defaults to false. */
+    viewOptions?: boolean;
+  };
 }
 
 export function DataTable<TData, TValue>({
+  title,
+  description,
   columns,
   data,
+  config,
 }: DataTableProps<TData, TValue>) {
+  const configuration = { pagination: true, viewOptions: false, ...config };
+
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -68,6 +92,17 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center">
+        <div className="flex flex-col gap-1">
+          <p className="text-xl font-bold">{title}</p>
+          {description ? (
+            <p className="text-sm text-muted-foreground">{description}</p>
+          ) : null}
+        </div>
+        {configuration?.viewOptions ? (
+          <DataTableViewOptions table={table} />
+        ) : null}
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -118,7 +153,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {configuration?.pagination ? <DataTablePagination table={table} /> : null}
     </div>
   );
 }
