@@ -7,7 +7,7 @@ stagedFiles=$(git diff --cached --name-only --diff-filter=ACM)
 if [ -n "$stagedFiles" ]; then
     for file in $stagedFiles; do
         if [[ "$file" == *.js || "$file" == *.jsx || "$file" == *.ts || "$file" == *.tsx ]]; then
-            pnpm format "$file" && pnpm lint --file "$file"
+            pnpm format "$file" && pnpm lint "$file"
             git add "$file"
         fi
     done

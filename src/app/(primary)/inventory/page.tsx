@@ -14,6 +14,9 @@ const Inventory = async () => {
           <p className="font-semibold">Item Catalog</p>
         </div>
         <DataTable data={inventory} columns={inventoryColumnDef} />
+      </section>
+      <section className="flex w-full flex-col gap-4">
+        <p className="text-xl font-bold">Demonstration Catalog</p>
         <DemonstrationDataTable />
       </section>
     </div>
