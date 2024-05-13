@@ -15,6 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { DownloadIcon } from "lucide-react";
 
 import {
   Table,
@@ -24,9 +25,10 @@ import {
   TableHeader,
   TableRow,
 } from "../../atoms/table";
-
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableViewOptions } from "./data-table-view-options";
+import { exportTableData } from "./export";
+import { Button } from "~/components/atoms/button";
 
 /**
  * Represents the properties for a data table component.
@@ -48,8 +50,16 @@ interface DataTableProps<TData, TValue> {
     pagination?: boolean;
     /** Whether to show view options, defaults to false. */
     viewOptions?: boolean;
+    /** Whether to show export, defaults to false. */
+    export?: boolean;
   };
 }
+
+const defaultConfiguration = {
+  pagination: true,
+  viewOptions: false,
+  export: false,
+};
 
 export function DataTable<TData, TValue>({
   title,
@@ -58,7 +68,7 @@ export function DataTable<TData, TValue>({
   data,
   config,
 }: DataTableProps<TData, TValue>) {
-  const configuration = { pagination: true, viewOptions: false, ...config };
+  const configuration = { ...defaultConfiguration, ...config };
 
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -92,16 +102,34 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
           <p className="text-xl font-bold">{title}</p>
           {description ? (
             <p className="text-sm text-muted-foreground">{description}</p>
           ) : null}
         </div>
-        {configuration?.viewOptions ? (
-          <DataTableViewOptions table={table} />
-        ) : null}
+        <div className="flex items-center gap-2">
+          {configuration?.viewOptions ? (
+            <DataTableViewOptions table={table} />
+          ) : null}
+          {configuration?.export ? (
+            <Button
+              className="ml-auto hidden h-8 gap-2 lg:flex"
+              size="sm"
+              onClick={() =>
+                exportTableData<TData>({
+                  data,
+                  fileName: "Demonstration Data",
+                  fileType: "CSV",
+                })
+              }
+            >
+              <DownloadIcon className="h-4 w-4" />
+              Export
+            </Button>
+          ) : null}
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

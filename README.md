@@ -30,4 +30,9 @@ You can use the recommended extensions for the project. You will find them in .v
 - [x] View Options
 - [ ] Search
 - [ ] Export
+  - [ ] CSV
+  - [ ] XLSX
+  - [ ] Download Page Range
 - [ ] Responsive
+- [ ] Column Pining
+- [ ] Column Resizing

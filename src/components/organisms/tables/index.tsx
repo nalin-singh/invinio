@@ -4,7 +4,7 @@ import inventoryColumnDef from "./columnDefs/inventoryColumnDef";
 import { _data } from "./data";
 // Here's a demonstration table for all the features accessible in the DataTable
 
-export function DemonstrationDataTable() {
+export const DemonstrationDataTable = () => {
   return (
     <div>
       <DataTable
@@ -12,8 +12,8 @@ export function DemonstrationDataTable() {
         description="This is a demonstration of all the features available in the DataTable component."
         data={_data}
         columns={inventoryColumnDef}
-        config={{ viewOptions: true }}
+        config={{ viewOptions: true, export: true }}
       />
     </div>
   );
-}
+};
