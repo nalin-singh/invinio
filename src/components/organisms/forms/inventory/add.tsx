@@ -34,8 +34,8 @@ const AddInventoryForm = () => {
       image: "",
       category: "",
       sellingPrice: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
   });
 
@@ -49,6 +49,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="name"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Name</FormLabel>
@@ -65,6 +66,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="description"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Description</FormLabel>
@@ -86,6 +88,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="category"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Description</FormLabel>
@@ -103,6 +106,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="price"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Price</FormLabel>
@@ -119,6 +123,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="unit"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Unit</FormLabel>
@@ -133,6 +138,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="quantity"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Quantity</FormLabel>
@@ -147,6 +153,7 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="sellingPrice"
+          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Selling Price</FormLabel>
