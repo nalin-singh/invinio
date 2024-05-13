@@ -3,14 +3,33 @@
 # Get list of staged files
 stagedFiles=$(git diff --cached --name-only --diff-filter=ACM)
 
+codeFiles=()
+miscellaneousFiles=()
+
 # Check if there are staged files
 if [ -n "$stagedFiles" ]; then
     for file in $stagedFiles; do
         if [[ "$file" == *.js || "$file" == *.jsx || "$file" == *.ts || "$file" == *.tsx ]]; then
-            pnpm format "$file" && pnpm lint "$file"
-            git add "$file"
+            codeFiles+=("$file")
+        elif [[ "$file" == *.json || "$file" == *.md ]]; then
+            miscellaneousFiles+=("$file")
         fi
     done
 fi
 
+# Changed Files
+echo
+if [ -n "$codeFiles" ]; then
+    echo "Code files (.js, .jsx, .ts, .tsx):"
+    printf '%s\n' "${codeFiles[@]}"
+    pnpm lint "${codeFiles[@]}" && pnpm format "${codeFiles[@]}"
+    git add "${codeFiles[@]}"
+    echo
+fi
+if [ -n "$miscellaneousFiles" ]; then
+    echo "Miscellaneous files (.json, .md):"
+    printf '%s\n' "${miscellaneousFiles[@]}"
+    pnpm format "${miscellaneousFiles[@]}"
+    git add "${miscellaneousFiles[@]}"
+fi
 exit 0
