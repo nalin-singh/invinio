@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -16,7 +16,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { DownloadIcon } from "lucide-react";
+import { DownloadIcon, FileJson, FileSpreadsheet } from "lucide-react";
 
 import {
   Table,
@@ -30,6 +30,12 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { exportTableData } from "./utils/export";
 import { Button } from "~/components/atoms/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/atoms/dropdown-menu";
 
 /**
  * Represents the properties for a data table component.
@@ -98,8 +104,28 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const exportCSVData = useCallback(
+    () =>
+      exportTableData<TData>({
+        data,
+        fileName: title,
+        fileType: "CSV",
+      }),
+    [data],
+  );
+
+  const exportXLSXData = useCallback(
+    () =>
+      exportTableData<TData>({
+        data,
+        fileName: title,
+        fileType: "XLSX",
+      }),
+    [data],
+  );
+
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
           <p className="text-xl font-bold">{title}</p>
@@ -112,20 +138,36 @@ export function DataTable<TData, TValue>({
             <DataTableViewOptions table={table} />
           ) : null}
           {configuration?.export ? (
-            <Button
-              className="ml-auto hidden h-8 gap-2 lg:flex"
-              size="sm"
-              onClick={() =>
-                exportTableData<TData>({
-                  data,
-                  fileName: "Demonstration Data",
-                  fileType: "CSV",
-                })
-              }
-            >
-              <DownloadIcon className="h-4 w-4" />
-              Export
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="ml-auto hidden h-8 gap-2 lg:flex" size="sm">
+                  <DownloadIcon className="h-4 w-4" />
+                  Export
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 px-2 py-1"
+                    size="sm"
+                    onClick={exportCSVData}
+                  >
+                    <FileJson className="h-4 w-4" /> CSV
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 px-2 py-1"
+                    size="sm"
+                    onClick={exportXLSXData}
+                  >
+                    <FileSpreadsheet className="h-4 w-4" /> XLSX
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : null}
         </div>
       </div>
