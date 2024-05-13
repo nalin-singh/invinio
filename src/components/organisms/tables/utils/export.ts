@@ -1,3 +1,6 @@
+// skipcq: JS-C1003
+import * as XLSX from "xlsx";
+
 type TExportTableDataProps<TData> = {
   data: TData[];
   fileName: string;
@@ -5,6 +8,7 @@ type TExportTableDataProps<TData> = {
 };
 
 // TData is an array of objects, use of Generic type is required
+
 const exportToCSV = <TData>({
   data,
   fileName,
@@ -46,6 +50,36 @@ const exportToCSV = <TData>({
   }, 200);
 };
 
+const exportToXLSX = <TData>({
+  data,
+  fileName,
+}: Omit<TExportTableDataProps<TData>, "fileType">) => {
+  if (!data[0]) {
+    throw new Error("Export to XLSX: Data Object is at index 0 is empty.");
+  }
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, fileName);
+  const buf = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
+  // Download Buf
+  const blob = new Blob([buf], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+
+  // Wait for download to initiate then remove the link after 200 milliseconds
+  setTimeout(() => {
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, 200);
+};
+
 export const exportTableData = <TData>({
   data,
   fileName,
@@ -53,5 +87,8 @@ export const exportTableData = <TData>({
 }: TExportTableDataProps<TData>) => {
   if (fileType === "CSV") {
     exportToCSV({ data, fileName });
+  }
+  if (fileType === "XLSX") {
+    exportToXLSX({ data, fileName });
   }
 };

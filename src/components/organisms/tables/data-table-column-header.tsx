@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback } from "react";
+
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -29,11 +31,25 @@ export function DataTableColumnHeader<TData, TValue>({
   title,
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
+  const toggleSortingAsc = useCallback(
+    () => column.toggleSorting(false),
+    [column],
+  );
+  const toggleSortingDesc = useCallback(
+    () => column.toggleSorting(true),
+    [column],
+  );
+  const toggleVisibility = useCallback(
+    () => column.toggleVisibility(false),
+    [column],
+  );
+
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
 
   return (
+    // skipcq: JS-0415
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -53,16 +69,16 @@ export function DataTableColumnHeader<TData, TValue>({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+          <DropdownMenuItem onClick={toggleSortingAsc}>
             <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Asc
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+          <DropdownMenuItem onClick={toggleSortingDesc}>
             <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Desc
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+          <DropdownMenuItem onClick={toggleVisibility}>
             <EyeNoneIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Hide
           </DropdownMenuItem>
