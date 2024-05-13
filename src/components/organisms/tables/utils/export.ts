@@ -1,14 +1,14 @@
 // skipcq: JS-C1003
 import * as XLSX from "xlsx";
 
+// TData is an array of objects, use of Generic type is required
 type TExportTableDataProps<TData> = {
   data: TData[];
   fileName: string;
   fileType: "CSV" | "XLSX";
 };
 
-// TData is an array of objects, use of Generic type is required
-
+// Export Data in CSV format using the built-in Blob API
 const exportToCSV = <TData>({
   data,
   fileName,
@@ -50,6 +50,7 @@ const exportToCSV = <TData>({
   }, 200);
 };
 
+// Export Data in XLSX format using the XLSX library from the vendor https://docs.sheetjs.com/docs/getting-started/installation/frameworks#vendoring
 const exportToXLSX = <TData>({
   data,
   fileName,
