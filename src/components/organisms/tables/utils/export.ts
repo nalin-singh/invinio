@@ -4,6 +4,7 @@ type TExportTableDataProps<TData> = {
   fileType: "CSV" | "XLSX";
 };
 
+// TData is an array of objects, use of Generic type is required
 const exportToCSV = <TData>({
   data,
   fileName,
