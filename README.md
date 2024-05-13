@@ -5,7 +5,7 @@
 ### Services being used
 
 - Vercel
-- Uplaodthing
+- Uploadthing
 - Posthog
 - Sentry
 - Clerk
@@ -36,3 +36,5 @@ You can use the recommended extensions for the project. You will find them in .v
 - [ ] Responsive
 - [ ] Column Pining
 - [ ] Column Resizing
+- [ ] Expanding Rows
+- [ ] Styling Configuration
