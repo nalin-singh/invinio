@@ -204,8 +204,8 @@ importers:
         specifier: ^0.9.1
         version: 0.9.1(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       xlsx:
-        specifier: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz
-        version: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz
+        specifier: file:vendor/xlsx-0.20.2.tgz
+        version: file:vendor/xlsx-0.20.2.tgz
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -3705,8 +3705,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz:
-    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz}
+  xlsx@file:vendor/xlsx-0.20.2.tgz:
+    resolution: {integrity: sha512-+nKZ39+nvK7Qq6i0PvWWRA4j/EkfWOtkP/YhMtupm+lJIiHxUrgTr1CcKv1nBk1rHtkRRQ3O2+Ih/q/sA+FXZA==, tarball: file:vendor/xlsx-0.20.2.tgz}
     version: 0.20.2
     engines: {node: '>=0.8'}
     hasBin: true
@@ -7411,7 +7411,7 @@ snapshots:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.3
 
-  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz: {}
+  xlsx@file:vendor/xlsx-0.20.2.tgz: {}
 
   xtend@4.0.2: {}
 

@@ -6,6 +6,7 @@
     "dbaeumer.vscode-eslint",
     "ms-vscode.vscode-typescript-next",
     "Supermaven.supermaven",
-    "imgildev.vscode-drizzle-snippets"
+    "imgildev.vscode-drizzle-snippets",
+    "DeepSourceCorp.deepsource-vscode"
   ]
 }
