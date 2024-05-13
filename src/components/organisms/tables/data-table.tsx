@@ -27,7 +27,7 @@ import {
 } from "../../atoms/table";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableViewOptions } from "./data-table-view-options";
-import { exportTableData } from "./export";
+import { exportTableData } from "./utils/export";
 import { Button } from "~/components/atoms/button";
 
 /**

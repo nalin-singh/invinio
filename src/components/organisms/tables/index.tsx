@@ -1,7 +1,7 @@
 "use client";
 import { DataTable } from "./data-table";
 import inventoryColumnDef from "./columnDefs/inventoryColumnDef";
-import { _data } from "./data";
+import { _data } from "./utils/data";
 // Here's a demonstration table for all the features accessible in the DataTable
 
 export const DemonstrationDataTable = () => {
