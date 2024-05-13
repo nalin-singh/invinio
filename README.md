@@ -35,7 +35,7 @@ You can use the recommended extensions for the project. You will find them in .v
 - [ ] Search
 - [ ] Export
   - [x] CSV
-  - [ ] XLSX
+  - [x] XLSX
   - [ ] Download Page Range
 - [ ] Responsive
 - [ ] Column Pining
