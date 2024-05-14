@@ -7,6 +7,7 @@ import { useUploadThing } from "~/utils/uploadthing";
 import { Button } from "./button";
 import { Input } from "./input";
 
+// Uses UploadThing API to Upload Files and returns a promise and the stored url
 const FileUploader = () => {
   const [files, setFiles] = useState<File[]>([]);
   const onDrop = useCallback((acceptedFiles: File[]) => {
