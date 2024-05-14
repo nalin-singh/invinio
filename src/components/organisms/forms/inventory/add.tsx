@@ -1,10 +1,11 @@
 "use client";
 
-import { auth } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
 import { Button } from "~/components/atoms/button";
+import FileUploader from "~/components/atoms/file-uploader";
 import {
   Form,
   FormControl,
@@ -18,8 +19,9 @@ import { Input } from "~/components/atoms/input";
 import { InventoryItemSchema, type TInventoryItem } from "~/types";
 
 const AddInventoryForm = () => {
-  const user = auth();
-  if (!user.userId) throw new Error("You must be logged in to add an item");
+  const { isSignedIn, user } = useUser();
+  if (isSignedIn && !user?.id)
+    throw new Error("You must be logged in to add an inventory item");
 
   const form = useForm<TInventoryItem>({
     resolver: zodResolver(InventoryItemSchema),
@@ -27,7 +29,7 @@ const AddInventoryForm = () => {
       id: uuid(),
       name: "",
       description: "",
-      userId: user?.userId,
+      userId: user?.id,
       price: 0,
       quantity: 0,
       unit: "",
@@ -45,11 +47,13 @@ const AddInventoryForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="grid grid-cols-2 gap-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="name"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Name</FormLabel>
@@ -66,7 +70,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="description"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Description</FormLabel>
@@ -88,7 +91,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="category"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Product Description</FormLabel>
@@ -106,7 +108,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="price"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Price</FormLabel>
@@ -123,7 +124,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="unit"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Unit</FormLabel>
@@ -138,7 +138,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="quantity"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Quantity</FormLabel>
@@ -153,7 +152,6 @@ const AddInventoryForm = () => {
         <FormField
           control={form.control}
           name="sellingPrice"
-          // skipcq: JS-0417
           render={({ field }) => (
             <FormItem>
               <FormLabel>Selling Price</FormLabel>
@@ -167,7 +165,10 @@ const AddInventoryForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FileUploader />
+        <Button className="col-span-2" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );
