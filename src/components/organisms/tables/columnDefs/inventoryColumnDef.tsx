@@ -5,7 +5,7 @@ import { Checkbox } from "../../../atoms/checkbox";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import type { TInventoryItem } from "~/types";
 
-const inventoryColumnDef: ColumnDef<TInventoryItem>[] = [
+export const inventoryColumnDef: ColumnDef<TInventoryItem>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -142,5 +142,3 @@ const inventoryColumnDef: ColumnDef<TInventoryItem>[] = [
     enableHiding: false,
   },
 ];
-
-export default inventoryColumnDef;
