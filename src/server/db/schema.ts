@@ -34,7 +34,7 @@ export const inventory = createTable("inventory", {
   createdAt: varchar("createdAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: varchar("createdAt", { length: 32 })
+  updatedAt: varchar("updatedAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   lastPurchasedAt: varchar("lastPurchasedAt", { length: 32 }),
