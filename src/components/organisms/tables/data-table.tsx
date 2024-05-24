@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
         fileName: title ?? "Data Table",
         fileType: "CSV",
       }),
-    [data],
+    [data, title],
   );
 
   const exportXLSXData = useCallback(
@@ -132,7 +132,7 @@ export function DataTable<TData, TValue>({
         fileName: title ?? "Data Table",
         fileType: "XLSX",
       }),
-    [data],
+    [data, title],
   );
 
   return (
