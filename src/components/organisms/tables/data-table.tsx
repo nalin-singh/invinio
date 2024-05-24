@@ -85,7 +85,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   config,
-}: DataTableProps<TData, TValue>) {
+}: Readonly<DataTableProps<TData, TValue>>) {
   const configuration = { ...defaultConfiguration, ...config };
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -153,7 +153,7 @@ export function DataTable<TData, TValue>({
                 Add Item
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-full">
+            <DialogContent className="w-full p-8">
               <AddInventoryForm />
             </DialogContent>
           </Dialog>
