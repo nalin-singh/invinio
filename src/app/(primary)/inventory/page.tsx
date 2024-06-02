@@ -1,5 +1,5 @@
 import { DemonstrationDataTable } from "~/components/organisms/tables";
-import inventoryColumnDef from "~/components/organisms/tables/columnDefs/inventoryColumnDef";
+import { inventoryColumnDef } from "~/components/organisms/tables/columnDefs/inventoryColumnDef";
 import { DataTable } from "~/components/organisms/tables/data-table";
 import { getInventory } from "~/server/queries/inventory";
 

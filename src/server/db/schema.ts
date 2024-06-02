@@ -13,8 +13,8 @@ import {
 } from "drizzle-orm/pg-core";
 
 /**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
+ * This is an example of how to use the multi-project schema feature of Drizzle ORM.
+ * Use the same database instance for multiple projects.
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
@@ -34,7 +34,7 @@ export const inventory = createTable("inventory", {
   createdAt: varchar("createdAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: varchar("createdAt", { length: 32 })
+  updatedAt: varchar("updatedAt", { length: 32 })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   lastPurchasedAt: varchar("lastPurchasedAt", { length: 32 }),

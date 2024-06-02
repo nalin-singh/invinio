@@ -1,5 +1,8 @@
 # Invinio
 
+[![DeepSource](https://app.deepsource.com/gh/nalin-singh/invinio.svg/?label=active+issues&show_trend=true&token=zaaHsqKLl2MC10h6aLlxpeuq)](https://app.deepsource.com/gh/nalin-singh/invinio/)
+[![DeepSource](https://app.deepsource.com/gh/nalin-singh/invinio.svg/?label=resolved+issues&show_trend=true&token=zaaHsqKLl2MC10h6aLlxpeuq)](https://app.deepsource.com/gh/nalin-singh/invinio/)
+
 ## Inventory and Invoice Management System
 
 ### Services being used
