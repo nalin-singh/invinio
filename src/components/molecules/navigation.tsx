@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { Package2 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../atoms/tooltip";
-import paths from "~/lib/paths";
 import { UserButton } from "@clerk/nextjs";
+import { Package2 } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import paths from "~/lib/paths";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../atoms/tooltip";
 
 const Navigation = () => {
   const pathname = usePathname();

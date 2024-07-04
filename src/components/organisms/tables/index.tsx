@@ -11,7 +11,7 @@ export const DemonstrationDataTable = () => {
         title="Demonstration Catalog"
         description="This is a demonstration of all the features available in the DataTable component."
         data={_data}
-        columns={inventoryColumnDef}
+        // columns={inventoryColumnDef}
         config={{ viewOptions: true, export: true }}
       />
     </div>

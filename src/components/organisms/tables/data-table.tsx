@@ -15,38 +15,12 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  Row,
 } from "@tanstack/react-table";
-import {
-  CirclePlus,
-  DownloadIcon,
-  FileJson,
-  FileSpreadsheet,
-} from "lucide-react";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../atoms/table";
+import { DownloadIcon, FileJson, FileSpreadsheet } from "lucide-react";
+import { Table, DropdownMenu, Button, Checkbox, Text } from "@radix-ui/themes";
 import { DataTablePagination } from "./data-table-pagination";
-import { DataTableViewOptions } from "./data-table-view-options";
 import { exportTableData } from "./utils/export";
-import { Button } from "~/components/atoms/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/atoms/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "~/components/atoms/dialog";
-import AddInventoryForm from "../forms/inventory/add";
 
 /**
  * Represents the properties for a data table component.
@@ -58,8 +32,8 @@ interface DataTableProps<TData, TValue> {
   title?: string;
   /** Optional description of the data table. */
   description?: string;
-  /** The columns configuration of the data table. */
-  columns: ColumnDef<TData, TValue>[];
+  /** The columns configuration of the data table, if not provided, it will be generated based on the data. */
+  columns?: ColumnDef<TData, TValue>[];
   /** The data to be displayed in the table. */
   data: TData[];
   /** Additional configuration options for the data table. */
@@ -79,6 +53,47 @@ const defaultConfiguration = {
   export: false,
 };
 
+const defaultColumnConfiguration = <TData,>(
+  data: TData[],
+): ColumnDef<TData>[] => {
+  if (!data[0]) return [];
+
+  const columns = Object.keys(data[0]);
+  console.log(columns);
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+          className="translate-y-[2px]"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+          className="translate-y-[2px]"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    ...columns.map((column) => ({
+      accessorKey: column,
+      header: () => <Text>{column}</Text>,
+      cell: ({ row }: { row: Row<TData> }) => <div>{row.getValue(column)}</div>,
+      enableSorting: true,
+    })),
+  ];
+};
+
 export function DataTable<TData, TValue>({
   title,
   description,
@@ -95,7 +110,7 @@ export function DataTable<TData, TValue>({
 
   const table = useReactTable({
     data,
-    columns,
+    columns: columns?.length ? columns : defaultColumnConfiguration(data),
     state: {
       sorting,
       columnVisibility,
@@ -146,103 +161,86 @@ export function DataTable<TData, TValue>({
           ) : null}
         </div>
         <div className="flex items-center gap-2">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="ml-auto hidden h-8 gap-2 lg:flex" size="sm">
-                <CirclePlus className="h-4 w-4" />
-                Add Item
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="w-full p-8">
-              <AddInventoryForm />
-            </DialogContent>
-          </Dialog>
-          {configuration?.viewOptions ? (
-            <DataTableViewOptions table={table} />
-          ) : null}
           {configuration?.export ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="ml-auto hidden h-8 gap-2 lg:flex" size="sm">
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <Button className="ml-auto hidden h-8 gap-2 lg:flex" size="2">
                   <DownloadIcon className="h-4 w-4" />
                   Export
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item>
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-2 px-2 py-1"
-                    size="sm"
+                    size="2"
                     onClick={exportCSVData}
                   >
                     <FileJson className="h-4 w-4" /> CSV
                   </Button>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item>
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-2 px-2 py-1"
-                    size="sm"
+                    size="2"
                     onClick={exportXLSXData}
                   >
                     <FileSpreadsheet className="h-4 w-4" /> XLSX
                   </Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           ) : null}
         </div>
       </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+        <Table.Root>
+          <Table.Header>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <Table.Row key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <Table.ColumnHeaderCell key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
-                    </TableHead>
+                    </Table.ColumnHeaderCell>
                   );
                 })}
-              </TableRow>
+              </Table.Row>
             ))}
-          </TableHeader>
-          <TableBody>
+          </Table.Header>
+          <Table.Body>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
+                <Table.Row
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <Table.Cell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
                       )}
-                    </TableCell>
+                    </Table.Cell>
                   ))}
-                </TableRow>
+                </Table.Row>
               ))
             ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+              <Table.Row>
+                <Table.Cell className="h-24 text-center">
                   No results.
-                </TableCell>
-              </TableRow>
+                </Table.Cell>
+              </Table.Row>
             )}
-          </TableBody>
-        </Table>
+          </Table.Body>
+        </Table.Root>
       </div>
       {configuration?.pagination ? <DataTablePagination table={table} /> : null}
     </div>
